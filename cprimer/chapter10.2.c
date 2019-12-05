@@ -38,6 +38,7 @@ int main()
     pz = zippo;
     printf("  pz=%p,  pz+1=%p\n", pz, pz + 1);
     printf("pz[0]=%p,pz[0]+1=%p\n", pz[0], pz[0] + 1);
+    printf("pz[2][1]=%d, *(*(pz+2)+1)=%d\n", pz[2][1], *(*(pz + 2) + 1));
 
     return 0;
 }
