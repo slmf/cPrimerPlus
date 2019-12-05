@@ -64,6 +64,7 @@ int main()
     printf("sum of all elements=%d\n", sum2d(ROWS - 1, COLS + 2, morejunk));
     printf("3x10 array\n");
     printf("sum of all elements=%d\n", sum2d(rs, cs, varr));
+    printf("he");
 
     return 0;
 }
