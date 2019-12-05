@@ -37,6 +37,7 @@ int main()
     int(*pz)[2];
     pz = zippo;
     printf("  pz=%p,  pz+1=%p\n", pz, pz + 1);
+    printf("pz[0]=%p,pz[0]+1=%p\n", pz[0], pz[0] + 1);
 
     return 0;
 }
