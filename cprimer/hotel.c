@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "hotel.h"
-
+//用于chapter9.c
 int menu(void)
 {
     int code, status;

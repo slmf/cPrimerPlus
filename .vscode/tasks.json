@@ -9,6 +9,9 @@
             "command": "gcc",
             "args": [
                 "${fileDirname}/hotel.c",
+                "${fileDirname}/list.c",
+                "${fileDirname}/queue.c",
+
                "-g",
                 "${file}",                
                 //"-o",
