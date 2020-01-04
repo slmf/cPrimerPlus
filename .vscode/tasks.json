@@ -8,9 +8,10 @@
             "type": "shell",
             "command": "gcc",
             "args": [
-                "${fileDirname}/hotel.c",
-                "${fileDirname}/list.c",
-                "${fileDirname}/queue.c",
+                //"${fileDirname}/hotel.c",
+                //"${fileDirname}/list.c",
+                //"${fileDirname}/queue.c",
+                "${fileDirname}/tree.c",
 
                "-g",
                 "${file}",                

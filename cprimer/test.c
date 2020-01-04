@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <inttypes.h>
-
+void *twoSum(int *nums, int numsSize, int target, int *returnSize);
 /* static char *getStr(void)
 {
     char p[] = "hello world";
@@ -23,7 +23,7 @@ int main(void)
     str = getStr();
     printf("%s", str); */
 
-    int x = 9832;
+    /* int x = 9832;//反转数字
     int rev = 0;
     while (x != 0)
     {
@@ -35,6 +35,29 @@ int main(void)
             return 0;
         rev = rev * 10 + pop;
     }
-    printf("%d", rev);
+    printf("%d", rev); */
+
+    int nums[4] = {2, 7, 11, 15};
+    int returnSize[2] = {0, 0};
+
+    twoSum(nums, 4, 9, returnSize);
+
     return 0;
+}
+void *twoSum(int *nums, int numsSize, int target, int *returnSize)
+{
+    int i, j;
+    for (i = 0; i < numsSize; i++)
+    {
+        for (j = 0; j < numsSize; j++)
+        {
+            if (nums[i] + nums[j] == target && i != j)
+            {
+                returnSize[0] = i;
+                returnSize[1] = j;
+            }
+        }
+    }
+    printf("%d %d", returnSize[0], returnSize[1]);
+    //return *returnSize;
 }
