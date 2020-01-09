@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <inttypes.h>
-void *twoSum(int *nums, int numsSize, int target, int *returnSize);
+//void *twoSum(int *nums, int numsSize, int target, int *returnSize);
 /* static char *getStr(void)
 {
     char p[] = "hello world";
@@ -8,9 +8,10 @@ void *twoSum(int *nums, int numsSize, int target, int *returnSize);
 } */
 int main(void)
 {
-    /* unsigned int a = 6;
-    int b = -20;//涉及两种类型的运算，两个值会被分别转换成两种类型的更高级别
-    (a + b > 6) ? puts(">6") : puts("<=6"); */
+    unsigned int a = 6;
+    int b = -20; //涉及两种类型的运算，两个值会被分别转换成两种类型的更高级别，见p125
+    //所以a+b时，b被转换成20
+    (a + b > 6) ? puts(">6") : puts("<=6");
 
     /* int a, b, c, d;
     a = 0;
@@ -37,14 +38,21 @@ int main(void)
     }
     printf("%d", rev); */
 
-    int nums[4] = {2, 7, 11, 15};
+    /*     int nums[4] = {2, 7, 11, 15};
     int returnSize[2] = {0, 0};
 
-    twoSum(nums, 4, 9, returnSize);
+    twoSum(nums, 4, 9, returnSize); */
+
+    /* int a, b;
+    while (scanf("%d %d", &a, &b) == 2)
+    //利用scanf的返回值,如果两个都输入整数，则各返回1,加起来就是2
+    {
+        printf("%d\n", a + b);
+    } */
 
     return 0;
 }
-void *twoSum(int *nums, int numsSize, int target, int *returnSize)
+/* void *twoSum(int *nums, int numsSize, int target, int *returnSize)
 {
     int i, j;
     for (i = 0; i < numsSize; i++)
@@ -60,4 +68,4 @@ void *twoSum(int *nums, int numsSize, int target, int *returnSize)
     }
     printf("%d %d", returnSize[0], returnSize[1]);
     //return *returnSize;
-}
+} */
