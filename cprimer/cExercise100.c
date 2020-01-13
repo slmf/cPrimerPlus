@@ -1,5 +1,9 @@
 //出自：https://wenku.baidu.com/view/48e09ef2bd64783e08122b18.html?sxts=1578391242618
+//https://blog.csdn.net/qq_41880190/article/details/84064556
 #include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+#include <assert.h>
 
 void code1()
 { //题目：有1、2、3、4个数字，能组成多少个互不相同且无重复数字的三位数？都是多少？
@@ -211,11 +215,211 @@ void code13()
     }
     printf("%d", i);
 }
+void code14()
+{ //一个5位数，判断它是不是回文数。即12321是回文数，个位与万位相同，十位与千位相同
+    long ge, shi, qian, wan, x;
+    scanf("%ld", &x);
+    wan = x / 10000;         //万位
+    qian = x % 10000 / 1000; //千位
+    shi = x % 100 / 10;      //十位
+    ge = x % 10;             //个位
+    if (ge == wan && shi == qian)
+        puts("是回文");
+    else
+        puts("不是回文");
+}
+void code15(int *array, int n, int m)
+{
+    //有n个整数，使其前面各数顺序向后移m个位置，最后m个数变成最前面的m个数
+    int *p, array_end; //定义一个指针变量p，和一个变量array_end
+
+    array_end = *(array + n - 1);           //将array中的最后一个元素的值赋给array_end,这一步需要提前做好
+    for (p = array + n - 1; p > array; p--) //从数组最后一个元素开始向前,把前一个元素的值赋给后一个元素
+    {
+        *p = *(p - 1);
+    }
+    *array = array_end; //将array_end的值赋给第一个元素的值  因为之前将最后一个元素的值赋给了array_end
+    m--;                // 通过m控制此函数执行几次  从而后移几个数
+
+    if (m > 0)
+    {
+        code15(array, n, m); //递归调用，当循环次数m减至为0时，停止调用
+    }
+    int i;
+}
+void code16(int *p, int n)
+{ //围成一圈，报数，数到3的人退出，求最后剩下的那个人是原来的第几个人
+    int count = 0, i = 0, k = 0, rest = n;
+    while (rest != 1)
+    { // 当还剩下一位时
+        if (*(p + i) != 0)
+        {        // 说明这个数还没退出圈
+            k++; //报数
+            if (k == 3)
+            {
+                count++;      // 退出人数
+                *(p + i) = 0; // 退出
+                k = 0;
+            }
+        }
+        i++;
+        if (i == n)
+        { // 这就形成一个圈了呀！
+            i = 0;
+        }
+        rest = n - count;
+    }
+    /* int i, n, s = 0;//利用约瑟夫环问题来解决
+    scanf("%d", &n);
+    for (i = 2; i <= n; i++)
+    {
+        s = (s + 3) % i;
+    }
+    printf("%d\n", s + 1); */
+}
+#define N 4
+static struct man
+{
+    char name[20];
+    int age;
+} person[N] = {"li", 48, "wang", 39, "zhang", 34, "sun", 25};
+void code17()
+{ //求结构里age最大的那个。
+    struct man *q, *p;
+    int i, m = 0;
+    p = person; //指针指向数组的第一个元素。
+
+    for (i = 0; i < N; i++)
+    {
+        if (m < p->age)
+        {
+            q = p++; //必须用p指针，不能直接写person++，因为person是数组，不能用++表达式对数组大小进行修改。
+        }
+        m = q->age;
+    }
+    printf("%s,%d", (*q).name, (*q).age);
+}
+void code18(float arr[], int n)
+{ //冒泡排序，对浮点数组进行降序排序
+    int i, j;
+    float temp;
+    int exchange = 1; //交换标志,在不需要交换的情况下，可以提高排序效率
+    for (i = 0; i < n; i++)
+    {                 // 最多做n-1趟排序
+        exchange = 0; // 本趟排序开始前，交换标志应为假
+        for (j = n - 1; j >= i; j--)
+        {
+            if (arr[j + 1] > arr[j]) //对当前无序区R[i..n]自下向上扫描
+            {
+                temp = arr[j + 1]; //R[0]不是哨兵，仅做暂存单元
+                arr[j + 1] = arr[j];
+                arr[j] = temp;
+                exchange = 1; // 发生了交换，故将交换标志置为真
+            }
+        }
+        if (!exchange) // 本趟排序未发生交换，提前终止算法
+            break;
+    }
+    for (i = 0; i < n; i++)
+    {
+        printf("%.2f ", arr[i]);
+    }
+}
+void code19()
+{ //计算字符串中子串出现的次数
+    char str1[20] = "hasdfssasdss";
+    char str2[20] = "asd";
+    char *p1, *p2;
+    int num = 0;
+    p1 = str1;
+    p2 = str2;
+    while (*p1 != '\0')
+    {
+        if (*p1 == *p2)
+        {
+            while (*p1 == *p2 && *p2 != '\0')
+            {
+                p1++;
+                p2++;
+            }
+        }
+        else
+            p1++;
+        if (*p2 == '\0')
+            num++;
+        p2 = str2;
+    }
+    printf("%d", num);
+}
+void code20()
+{ //找出一个字符串中由同一个字符组成的最长子串
+    char str[] = "Yummyyyyby";
+    char *ptr = str;
+    //printf("%p", ptr);//%p输出指针的地址，%s输出指针指向的值，即str的内容
+    int len = 1, lenMax = 1, i;
+    char ch;
+    while (*ptr != '\0')
+    {
+        if (*ptr == *(ptr + 1))
+            len++;
+        else
+        {
+            if (lenMax < len)
+            {
+                lenMax = len;
+                ch = *ptr;
+            }
+            len = 1;
+        }
+        ptr++;
+    }
+    printf("%d ", lenMax);
+    for (i = 0; i < lenMax; i++)
+        putchar(ch);
+}
+void code21(char *str, int len)
+{ //递归实现字符串逆序输出
+    assert(str);
+    if (*str == '\0')
+        return;
+    else
+        code21(str + 1, len - 1);
+    printf("%c", *str);
+
+    /*char food[] = "Yummyyyyby";////指针实现字符串逆序输出
+    char *ptr;
+    ptr = food + strlen(food);
+    while (--ptr >= food) //指针比较，比的是地址，而数组中后一个元素的地址总是大于前一个
+        putchar(*ptr);    //反转字符串，反向打印一个字符数组 */
+}
 
 int main()
 {
+    char str[] = "asdfg";
+    code21(str, 5);
+
+    //float ar[] = {1.1, 1.3, 4.3, 2.3, 3.3};
+    //code18(ar, 5);
+
+    /* int n = 1;
+    while (n++ < 4) //++放在n的前面和后面的区别在于，++n则n的值为2、3，n++则n的值为2、3、4
+        printf("%d", n);//while里的++，初始的值不会算上去
+    for (n = 1; n < 4; n++)//无论++在n的前面还是后面，n的值都为1、2、3
+        printf("%d", n); */
+
+    /* int n = 1;
+    int *p = &n; //这个&必不可少，整数转换成指针要加上&取地址
+    printf("%d", *p); */
+
     //printf("%d", code12(5));
-    code13();
+
+    /* int num[5] = {1, 2, 3, 4, 5};
+    code15(num, 5, 2);
+    int i;
+    for (i = 0; i < 5; i++)
+    {
+        printf("%d", num[i]);
+    } */
 
     return 0;
 }
