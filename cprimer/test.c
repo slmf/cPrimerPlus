@@ -53,7 +53,7 @@ int main(void)
     return 0;
 }
 /* void *twoSum(int *nums, int numsSize, int target, int *returnSize)
-{
+{//给定一个整数数组和一个目标值，找出数组中和为目标值的两个数
     int i, j;
     for (i = 0; i < numsSize; i++)
     {
