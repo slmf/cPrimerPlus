@@ -100,7 +100,7 @@ void code5()
     }
 }
 void code6()
-{
+{ //一球从100米高度自由落下,每次落地后反跳回原高度的一半再落下,求它在第10次落地时,共经过多少米?第10次反弹多高
     float sn = 100.0, hn = sn / 2;
     int n;
     for (n = 2; n <= 10; n++)
@@ -159,7 +159,7 @@ void code9()
     float sum = 2.00;
     for (i = 2; i <= 20; i++)
     {
-        temp = up; //float必不可少，这样才能把原有的up值传递给down
+        temp = up; //temp必不可少，这样才能把原有的up值传递给down
         up = up + down;
         down = temp;
         sum = sum + (up / down);
@@ -229,8 +229,7 @@ void code14()
         puts("不是回文");
 }
 void code15(int *array, int n, int m)
-{
-    //有n个整数，使其前面各数顺序向后移m个位置，最后m个数变成最前面的m个数
+{                      //有n个整数，使其前面各数顺序向后移m个位置，最后m个数变成最前面的m个数
     int *p, array_end; //定义一个指针变量p，和一个变量array_end
 
     array_end = *(array + n - 1);           //将array中的最后一个元素的值赋给array_end,这一步需要提前做好
@@ -386,22 +385,90 @@ void code21(char *str, int len)
         code21(str + 1, len - 1);
     printf("%c", *str);
 
-    /*char food[] = "Yummyyyyby";////指针实现字符串逆序输出
+    /* while (*str != '\0')//正序打印字符数组
+    {
+        printf("%c", *str);
+        str++;
+    } */
+
+    /*char food[] = "Yummyyyyby";//指针实现字符串逆序输出
     char *ptr;
     ptr = food + strlen(food);
     while (--ptr >= food) //指针比较，比的是地址，而数组中后一个元素的地址总是大于前一个
         putchar(*ptr);    //反转字符串，反向打印一个字符数组 */
 }
+int code22(const int sorted[], int size, int val)
+{ //对已排序的数组进行二叉树查找
+    int min = 0;
+    int max = size - 1;
+    int mid;
+    int found = 0;
+
+    while (min < max)
+    {
+        mid = (min + max) / 2;
+        if (val < sorted[mid])
+            max = mid - 1;
+        else if (val > sorted[mid])
+            min = mid + 1;
+        else
+        {
+            found = 1;
+            break;
+        }
+    }
+    if (sorted[min] == val)
+        found = 1;
+
+    return found; //返回是否找到val
+}
+int getIndex(int arr[], int low, int high)
+{                       //快速排序
+    int key = arr[low]; //基准数据
+    while (low < high)
+    {
+        while (low < high && arr[high] >= key)
+        { // 当队尾的元素大于等于基准数据时,向前挪动high指针
+            high--;
+        }
+        arr[low] = arr[high]; // 如果队尾元素小于key了,需要将其赋值给low
+        while (low < high && arr[low] <= key)
+        { // 当队首元素小于等于key时,向后挪动low指针
+            low++;
+        }
+        arr[high] = arr[low]; // 当队首元素大于key时,需要将其赋值给high
+    }
+    arr[low] = key; // 跳出循环时low和high相等,此时的low或high就是tmp的正确索引位置
+    return low;
+}
+void code23(int arr[], int low, int high)
+{ //快速排序
+    if (low < high)
+    {
+        int index = getIndex(arr, low, high);
+        code23(arr, 0, index - 1);
+        code23(arr, index + 1, high);
+    }
+}
 
 int main()
 {
+    int arr[] = {49, 38, 65, 97, 23, 22, 76, 1, 5, 8, 2, 0, -1, 22};
+    code23(arr, 0, 13);
+    int i;
+    for (i = 0; i < 14; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+
     char str[] = "asdfg";
     code21(str, 5);
 
     //float ar[] = {1.1, 1.3, 4.3, 2.3, 3.3};
     //code18(ar, 5);
-    /* float *p = ar - 1;//指针正序打印数组元素
-    while (++p <= ar + 4)
+
+    /* float *p = ar - 1; //指针正序打印数组元素
+    while (p++ < ar + 4)
     {
         printf("%.2f ", *p);
     } */

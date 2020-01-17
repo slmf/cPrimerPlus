@@ -6,12 +6,38 @@
     char p[] = "hello world";
     return p;
 } */
+void foo(int m, int n)
+
+{
+
+    printf("m=%d, n=%d\n", m, n);
+}
 int main(void)
 {
-    unsigned int a = 6;
+    int b = 3;
+
+    foo(b += 3, ++b);
+
+    printf("b=%d\n", b);
+    /* unsigned int a = 6;
     int b = -20; //涉及两种类型的运算，两个值会被分别转换成两种类型的更高级别，见p125
     //所以a+b时，b被转换成20
-    (a + b > 6) ? puts(">6") : puts("<=6");
+    (a + b > 6) ? puts(">6") : puts("<=6"); */
+
+    /* int a = 2;
+    a *= 4 + 3; //相当于a*=(4+3);
+    printf("%d", a); */
+
+    //int a[4][] = {2, 3, 4};//不合法，二维数组定义时，第二个一定要写清楚大小
+    int a[][4] = {2, 3, 4}; //合法，第一个没写清楚没事
+    printf("%d", a[0][1]);
+
+    float x = 3.45566667, y;
+    y = (int)(x * 100 + 0.5) / 100.0; //保留两位小数点，对第三位四舍五入
+    printf("%f", y);
+
+    //&&和||的短路现象:&&判断前面一个如果不符合就直接跳出，||判断前面一个符合就直接跳出，不会再计算后面的东西
+    //scanf不接收空格，gets会接收空格。
 
     /* int a, b, c, d;
     a = 0;
