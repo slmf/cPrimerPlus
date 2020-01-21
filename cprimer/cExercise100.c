@@ -244,7 +244,6 @@ void code15(int *array, int n, int m)
     {
         code15(array, n, m); //递归调用，当循环次数m减至为0时，停止调用
     }
-    int i;
 }
 void code16(int *p, int n)
 { //围成一圈，报数，数到3的人退出，求最后剩下的那个人是原来的第几个人
@@ -281,22 +280,25 @@ static struct man
 {
     char name[20];
     int age;
-} person[N] = {"li", 48, "wang", 39, "zhang", 34, "sun", 25};
+} person[N] = {"li", 48, "wang", 39, "zhang", 54, "sun", 25};
 void code17()
 { //求结构里age最大的那个。
     struct man *q, *p;
-    int i, m = 0;
+    int i, m = person->age;
     p = person; //指针指向数组的第一个元素。
 
     for (i = 0; i < N; i++)
     {
-        if (m < p->age)
+        if (person[i].age > m)
+            m = person[i].age; //不用指针查找最大值
+        /* if (m < p->age)
         {
             q = p++; //必须用p指针，不能直接写person++，因为person是数组，不能用++表达式对数组大小进行修改。
         }
-        m = q->age;
+        m = q->age; */
     }
-    printf("%s,%d", (*q).name, (*q).age);
+    printf("%d", m);
+    //printf("%s,%d", (*q).name, (*q).age);
 }
 void code18(float arr[], int n)
 { //冒泡排序，对浮点数组进行降序排序
@@ -306,7 +308,8 @@ void code18(float arr[], int n)
     for (i = 0; i < n; i++)
     {                 // 最多做n-1趟排序
         exchange = 0; // 本趟排序开始前，交换标志应为假
-        for (j = n - 1; j >= i; j--)
+        //for (j = n - 1; j >= i; j--)
+        for (j = 0; j < n - i - 1; j++) //这种方式更好
         {
             if (arr[j + 1] > arr[j]) //对当前无序区R[i..n]自下向上扫描
             {
@@ -321,7 +324,7 @@ void code18(float arr[], int n)
     }
     for (i = 0; i < n; i++)
     {
-        printf("%.2f ", arr[i]);
+        printf("%.1f ", arr[i]);
     }
 }
 void code19()
@@ -397,12 +400,12 @@ void code21(char *str, int len)
     while (--ptr >= food) //指针比较，比的是地址，而数组中后一个元素的地址总是大于前一个
         putchar(*ptr);    //反转字符串，反向打印一个字符数组 */
 }
-int code22(const int sorted[], int size, int val)
+bool code22(const int sorted[], int size, int val)
 { //对已排序的数组进行二叉树查找
     int min = 0;
     int max = size - 1;
     int mid;
-    int found = 0;
+    bool found = 0;
 
     while (min < max)
     {
@@ -438,13 +441,14 @@ int getIndex(int arr[], int low, int high)
         }
         arr[high] = arr[low]; // 当队首元素大于key时,需要将其赋值给high
     }
-    arr[low] = key; // 跳出循环时low和high相等,此时的low或high就是tmp的正确索引位置
+    arr[low] = key; // 跳出循环时low和high相等,此时的low或high就是key的正确索引位置
     return low;
 }
 void code23(int arr[], int low, int high)
-{ //快速排序
+{ //快速排序,来源：https://blog.csdn.net/nrsc272420199/article/details/82587933
     if (low < high)
     {
+        //用数组名作为函数调用时的实参，实际上传递给形参的是首元素的地址,因此arr会被改变
         int index = getIndex(arr, low, high);
         code23(arr, 0, index - 1);
         code23(arr, index + 1, high);
@@ -453,19 +457,19 @@ void code23(int arr[], int low, int high)
 
 int main()
 {
-    int arr[] = {49, 38, 65, 97, 23, 22, 76, 1, 5, 8, 2, 0, -1, 22};
+    /* int arr[] = {49, 38, 65, 97, 23, 22, 76, 1, 5, 8, 2, 0, -1, 22};
     code23(arr, 0, 13);
     int i;
     for (i = 0; i < 14; i++)
     {
         printf("%d ", arr[i]);
-    }
+    } */
 
-    char str[] = "asdfg";
-    code21(str, 5);
+    /* char str[] = "asdfg";
+    code21(str, 5); */
 
-    //float ar[] = {1.1, 1.3, 4.3, 2.3, 3.3};
-    //code18(ar, 5);
+    /* float ar[] = {1.1, 1.3, 4.3, 2.3, 3.3, 2.2};
+    code18(ar, 6); */
 
     /* float *p = ar - 1; //指针正序打印数组元素
     while (p++ < ar + 4)
@@ -485,13 +489,13 @@ int main()
 
     //printf("%d", code12(5));
 
-    /* int num[5] = {1, 2, 3, 4, 5};
+    int num[5] = {1, 2, 3, 4, 5};
     code15(num, 5, 2);
     int i;
     for (i = 0; i < 5; i++)
     {
         printf("%d", num[i]);
-    } */
+    }
 
     return 0;
 }

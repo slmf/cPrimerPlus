@@ -14,7 +14,8 @@
                 "${fileDirname}/tree.c",
 
                "-g",
-                "${file}",                
+                "${file}",
+                "-lm",//加上这行，才能使用math.h里的函数。                
                 //"-o",
                 //"${fileDirname}/${fileBasenameNoExtension}"
             ],
