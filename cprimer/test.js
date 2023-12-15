@@ -1,5 +1,5 @@
  functionName = function() {
 
-document.write("You are learning how to call JavaScript function in html");
+window.location.replace("https://www.bing.com");
 
         }
